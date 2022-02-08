@@ -1,0 +1,18 @@
+01: Create Tasks
+02: Delete Tasks
+03: Maintain Task Properties
+04: Add/Remove Tasks as Subtasks
+05: Handle Milestones
+06: Create Resources (person)
+07: Delete Resources (person)
+08: Maintain Resource Properties
+09: Add/Remove Task Links, inner
+10: Add/Remove Resources to Tasks Dependencies
+11: Change Task Begin/End Times manually with user changes
+12: Change Task Begin/End Times automatically with dependency changes
+13: Change Task Begin/End Times automatically with subtask changes
+14: Prevent Circular Dependencies
+15: Show Critical Path
+16: Add/Remove Holidays and Vacation Days
+17: Show Resource Utilization (underused or overused person)
+XXX: General Purpose Code

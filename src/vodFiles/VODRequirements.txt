@@ -1,0 +1,14 @@
+R0	Users should be able to display a list of available movies and select one from the list
+R1	Play movie immediately after selection from list
+R2	Users should be able to display textual information about a selected movie
+R3	User should be able to pause a movie
+R4	3 seconds max to load movie list
+R5	3 seconds max to load textual information about a movie
+R6	1 second max to start playing a movie
+R7	Provide VCR-like user interface
+R8	User should be able to stop a movie
+R9	User should be able to start a movie
+R10	User should be able to change server
+R11	User should be able to exit the player
+R12	
+R13	User should be able to start the movie player

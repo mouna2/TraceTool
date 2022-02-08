@@ -1,0 +1,21 @@
+01: Paint figures and connections
+02: Create figures and connections
+03: Delete figures
+04: Delete connections
+05: Select and deselect figures
+06: Move- scale- or rotate figures
+07: Change properties of figures
+08: Edit  text in figures
+09: Align figures
+10: Change z-ordering
+11: Grouping and ungrouping figures
+12: Launch the application
+13: Open an existing drawing
+14: Save a drawing
+15: Scalability:  Drawings should be as large as possible
+16: Performance: Quickly redraw figures if changed
+17: Performance: Quickly locate figures based on x-y coordinates
+18: Interoperability: Support data exchange via the clipboard
+19: Usability: Support operating system specific user interfaces
+20: Performance: Strive for a short startup latency
+21: Recoverability: periodic auto-save
