@@ -1250,7 +1250,8 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 	    		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
 	    		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/TP_T");
 
-	    	}		        	
+	    	}
+        	
 	        	
 	        	
 	         // WE CANNOT MAKE A PREDICTION
