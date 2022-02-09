@@ -179,6 +179,7 @@ public class RTMCell {
 		if (predictionPattern!=pattern) modified=true;
 		predictionPattern = pattern;
 		predictedTraceValue = predictionPattern.getValue();
+		this.setPredictedTraceValue(TraceValue.NoTrace);
 
 		if (goldTraceValue.equals(TraceValue.Trace))
 			pattern.T++;
@@ -186,6 +187,7 @@ public class RTMCell {
 			pattern.N++;
 		else if (goldTraceValue.equals(TraceValue.UndefinedTrace))
 			pattern.U++;
+		
 	}
 	public void resetPrediction() {
 		predictionPattern = null;

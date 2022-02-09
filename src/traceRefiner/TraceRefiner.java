@@ -19,7 +19,9 @@ public class TraceRefiner {
 
 	static public void step1_classNs2MethodNs() {
 //		Map<String, MethodRTMCell> treeMap = new TreeMap<String,MethodRTMCell>(MethodRTMCell.methodtraces2HashMap);
-
+		for (MethodRTMCell methodtrace : MethodRTMCell.methodtraces2HashMap.values()) {
+				methodtrace.setPredictedTraceValue(TraceValue.UndefinedTrace);
+		}
 		for (MethodRTMCell methodtrace : MethodRTMCell.methodtraces2HashMap.values()) {
 			if (methodtrace.getClazzRTMCell().getTraceValue().equals(RTMCell.TraceValue.NoTrace))
 				methodtrace.setPrediction(TraceRefinerPredictionPattern.Step1ClassNoTraceImpliesMethodNoTracePattern);
