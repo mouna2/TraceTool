@@ -1025,8 +1025,8 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 
 	private static void randomForest(FileWriter myWriter) throws Exception {
 		// TODO Auto-generated method stub
-		
-		DatabaseInput.read("chess");
+		String programName="chess";
+		DatabaseInput.read(programName);
 		
 				Remove removeFilter = new Remove();
 				removeFilter.setAttributeIndicesArray(indices);
@@ -1050,10 +1050,10 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 
         
         
-//        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ProgramReqMethod.arff");//Training corpus file  
-        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\chessProgramReqMethod.arff");//Training corpus file  
-//        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ganttProgramReqMethod.arff");//Training corpus file  
-//        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\iTrustProgramReqMethod.arff");//Training corpus file  
+        //        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ProgramReqMethod.arff");//Training corpus file  
+              inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\chessProgramReqMethod.arff");//Training corpus file  
+//           inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ganttProgramReqMethod.arff");//Training corpus file  
+//               inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\iTrustProgramReqMethod.arff");//Training corpus file  
 //        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\JHotDrawProgramReqMethod.arff");//Training corpus file  
 
         atf = new ArffLoader();   
@@ -1061,9 +1061,9 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
         Instances ProgramReqMethod = atf.getDataSet(); // Read in training documents      
         
 //        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\DataAfterStep2.arff");//Test corpus file  
-        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\chessTest.arff");//Test corpus file  
-//        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ganttTest.arff");//Test corpus file  
-//        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\iTrustTest.arff");//Test corpus file  
+            inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\chessTest.arff");//Test corpus file  
+//               inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ganttTest.arff");//Test corpus file  
+//              inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\iTrustTest.arff");//Test corpus file  
 //        inputFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\JHotDrawTest.arff");//Test corpus file  
 
         atf.setFile(inputFile);            
@@ -1101,12 +1101,12 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
          for(int  i = 0;i<sum;i++)//Test classification result 1
          {  
          	int program = (int)ProgramReqMethod.instance(i).toDoubleArray()[0]; 
-         	String programName=getProgName(program); 
+         	String ProgramName=getProgName(program); 
          	String reqMethod=(int)ProgramReqMethod.instance(i).toDoubleArray()[1]+"-"+(int)ProgramReqMethod.instance(i).toDoubleArray()[2]; 
 
          		
          		
-         	MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.UndefinedTrace); 
+         	MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.UndefinedTrace); 
          		
          
          }
@@ -1128,7 +1128,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
             for(int  i = 0;i<sum;i++)//Test classification result 1
         {  
             	
-            	System.out.println(i);
+//            	System.out.println(i);
         
         
         
@@ -1138,24 +1138,24 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
         	String reqMethod=(int)ProgramReqMethod.instance(i).toDoubleArray()[1]+"-"+(int)ProgramReqMethod.instance(i).toDoubleArray()[2]; 
         	
         	int program = (int)ProgramReqMethod.instance(i).toDoubleArray()[0]; 
-        	String programName=getProgName(program); 
-            String classID=MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getMethod().getClazz().ID;
+        	String ProgramName=getProgName(program); 
+            String classID=MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getMethod().getClazz().ID;
         	String reqClass=(int)ProgramReqMethod.instance(i).toDoubleArray()[1]+"-"+classID;
         	
-        	String decision=MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getDecision(); 
+        	String decision=MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getDecision(); 
         	
         	//RESET U 
-        	if(MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getPredictedTraceValue().equals(TraceValue.UndefinedTrace)) {
+        	if(MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getPredictedTraceValue().equals(TraceValue.UndefinedTrace)) {
         		if(instancesTest.instance(i).classValue()==1.0) N++; 
         		else if(instancesTest.instance(i).classValue()==0.0) T++; 
         		
-        		if(MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getGoldTraceValue().equals(TraceValue.NoTrace))
+        		if(MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getGoldTraceValue().equals(TraceValue.NoTrace))
         		none++; 
         		//PREDICTION IS N AND PROBA OF N GREATER THAN 0.95
         		if((
 //        				instancesTest.instance(i).classValue()==1.0 && 
         				
-        				probs[1]>thresholds_N[t] && MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getGoldTraceValue().equals(TraceValue.NoTrace) )
+        				probs[1]>thresholds_N[t] && MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getGoldTraceValue().equals(TraceValue.NoTrace) )
         				
 //        				||
 //        				(MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getPredictedTraceValue().equals(TraceValue.NoTrace)
@@ -1166,8 +1166,8 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
         				U--; 
         			}
             		TP_N++;//Correct value plus 1       
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.NoTrace);
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/TP_N");
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.NoTrace);
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setDecision("/TP_N");
 
             		entered=true; 
             	}
@@ -1176,15 +1176,15 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
             	else if(
 //            			instancesTest.instance(i).classValue()==0.0 && 
             			probs[0]>thresholds_T[t] &&
-            			MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getGoldTraceValue().equals(TraceValue.Trace) 
+            			MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getGoldTraceValue().equals(TraceValue.Trace) 
 //            			&& probs[0]>thresholds_T[1] 
             					) {
             		if(decision.equals("/U")) {
             			U--; 
             		}
             		TP_T++;
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/TP_T");
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setDecision("/TP_T");
 
             		entered=true; 
 
@@ -1195,7 +1195,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 //            			(
             					probs[1]>thresholds_N[t] 
 //            							&& instancesTest.instance(i).classValue()==0.0 
-            							&& MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getGoldTraceValue().equals(TraceValue.Trace)
+            							&& MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getGoldTraceValue().equals(TraceValue.Trace)
 //            			) ||
 //            		
 //            			(
@@ -1209,8 +1209,8 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
             		}
             		FN_T++; 
             		FP_N++;  
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.NoTrace);
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/FN_T/FP_N");
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.NoTrace);
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setDecision("/FN_T/FP_N");
 
             		entered=true; 
 
@@ -1218,7 +1218,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
         		//PREDICTION IS T AND PROBA OF T IS GREATER THAN 0.65
             	else if( (probs[0]>thresholds_T[t] 
 //            			&& instancesTest.instance(i).classValue()==1.0 
-            			&& MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getGoldTraceValue().equals(TraceValue.NoTrace))
+            			&& MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getGoldTraceValue().equals(TraceValue.NoTrace))
             			
 //            			||	
 //            			(probs[0]>thresholds_T[1] 
@@ -1230,8 +1230,8 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
             		}
             		FP_T++; 
             		FN_N++; 
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
-            		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/FN_N/FP_T");
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
+            		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setDecision("/FN_N/FP_T");
 
             		entered=true; 
 
@@ -1240,23 +1240,25 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 
         		
         		// IF THE CLASS TRACE IS A T THEN WE PREDICT A T 
-	        	else if(ClazzRTMCell.clazzTracesByProgramNameHashMap.get(programName).get(reqClass).equals(TraceValue.Trace) 
-			        	&& MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getGoldTraceValue().equals(TraceValue.Trace)
+	        	else if(ClazzRTMCell.clazzTracesByProgramNameHashMap.get(ProgramName).get(reqClass).equals(TraceValue.Trace) 
+			        	&& MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getGoldTraceValue().equals(TraceValue.Trace)
 			            ){ 
 	        		if(decision.equals("/U")) {
 	        			U--; 
 	        		}
 	    		TP_T++;
-	    		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
-	    		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/TP_T");
+	    		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.Trace);
+	    		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setDecision("/TP_T");
 
 	    	}
         	
 	        	
 	        	
 	         // WE CANNOT MAKE A PREDICTION
-	        	else  if(!MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).getDecision().equals("/U")){
-	        		MethodRTMCell.Totalmethodtraces2HashMap.get(programName).get(reqMethod).setDecision("/U");
+	        	else  if(!MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).getDecision().equals("/U")){
+		    		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setPredictedTraceValue(TraceValue.UndefinedTrace);
+
+	        		MethodRTMCell.Totalmethodtraces2HashMap.get(ProgramName).get(reqMethod).setDecision("/U");
 	        		U++;  
 	        	}
         		
@@ -1282,7 +1284,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
             System.out.println("T: "+T);
             
         System.out.println("none "+none);
-        RecomputeInputFileAfterStep2(myWriter); 
+        RecomputeInputFileAfterStep2(myWriter, programName); 
         System.out.println("done2");
 
         System.out.println("===> "+totalIts);
@@ -1298,7 +1300,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
         
         
         
-        
+
         
         
         System.out.println(TP_N);
@@ -1429,9 +1431,9 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 	
 	
 
-	private static void RecomputeInputFileAfterStep2(FileWriter myWriter) throws IOException {
+	private static void RecomputeInputFileAfterStep2(FileWriter myWriter, String programName) throws IOException {
 		// TODO Auto-generated method stub
-		printPredictedValues(myWriter);
+		printPredictedValues(myWriter, programName);
 	}
 
 	private static String getProgName(int program) {
@@ -1445,7 +1447,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 
 	}
 
-	private static void printPredictedValues( FileWriter myWriter) throws IOException {
+	private static void printPredictedValues( FileWriter myWriter, String programName) throws IOException {
 		PrintWriter myWriter2 = new PrintWriter("log//step2Data.txt"); 
 		myWriter2.print("");
 		myWriter2.close();
@@ -1454,10 +1456,10 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 		myWriter.write("@RELATION traces \r\n" + 
 				"\r\n" + 
 				"@ATTRIBUTE gold	{T,N,U}\r\n" + 
-				"@ATTRIBUTE program 	{chess, gantt, itrust, jhotdraw}\r\n" + 
+//				"@ATTRIBUTE program 	{chess, gantt, itrust, jhotdraw}\r\n" + 
 				"@ATTRIBUTE MethodType 	{Inner, Leaf, Root}\r\n" + 
-				"@ATTRIBUTE RequirementID	REAL\r\n" + 
-				"@ATTRIBUTE MethodID REAL \r\n" + 
+//				"@ATTRIBUTE RequirementID	REAL\r\n" + 
+//				"@ATTRIBUTE MethodID REAL \r\n" + 
 				"@ATTRIBUTE PredictedTraceValue {UndefinedTrace,NoTrace, Trace, NA}\r\n" + 
 				"@ATTRIBUTE CallersT REAL \r\n" + 
 				"@ATTRIBUTE CallersN REAL \r\n" + 
@@ -1479,7 +1481,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 				"\r\n" + 
 				"");
 		int i=1; 
-		for(String programName: MethodRTMCell.Totalmethodtraces2HashMap.keySet()) {
+		//for(String programName: MethodRTMCell.Totalmethodtraces2HashMap.keySet()) {
 			LinkedHashMap<String, MethodRTMCell> methodTraces = MethodRTMCell.Totalmethodtraces2HashMap.get(programName);
 			for(MethodRTMCell methodRTMCell: methodTraces.values()) {
 				
@@ -1511,7 +1513,11 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 
 				
 				if(ClazzRTMCell.clazzTracesByProgramNameHashMap.get(programName).get(methodRTMCell.getRequirement().ID+"-"+methodRTMCell.getMethod().getClazz().ID)!=null ) {
-					myWriter.write(gold+","+programName+","+methodType+","+methodRTMCell.getRequirement().ID+","+methodRTMCell.getMethod().ID+","+methodRTMCell.getPredictedTraceValue()
+					myWriter.write(gold+","
+//				+programName
+							+","+methodType
+//							+","+methodRTMCell.getRequirement().ID+","+methodRTMCell.getMethod().ID
+							+","+methodRTMCell.getPredictedTraceValue()
 					+","+countsCallers.amountT+","+countsCallers.amountN+","+countsCallers.amountU
 					+","+countsCallersCallers.amountT+","+countsCallersCallers.amountN+","+countsCallersCallers.amountU
 					+","+countsCallees.amountT+","+countsCallees.amountN+","+countsCallees.amountU			
@@ -1530,7 +1536,7 @@ if (test==Algorithm.ErrorSeederT ||test==Algorithm.ErrorSeederN || test==Algorit
 			}
 			
 			System.out.println(i);
-		}
+		
 		
 		
 
