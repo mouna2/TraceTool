@@ -30,8 +30,16 @@ public class Method {
 	private Variable returnType= new Variable(); 
 	private VariableList fieldMethods= new VariableList(); 
 	private HashSet<Variable> methodVars= new HashSet<Variable>(); 
+	private String content= ""; 
 	
-	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public HashSet<Variable> getMethodVars() {
 		return methodVars;
 	}
@@ -92,12 +100,13 @@ public class Method {
 		this.fieldMethods = fieldMethods;
 	}
 
-	public Method(String methodid, String name, Clazz clazz) {
+	public Method(String methodid, String name, Clazz clazz, String content) {
 		super();
 		this.ID = methodid;
 		this.name = name;
 		this.clazz = clazz;
 		this.fullMethodName = clazz.getName()+"."+ name;
+		this.content=content; 
 
 		methodsHashMap.put(this.ID, this);
 	}

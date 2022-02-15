@@ -25,8 +25,18 @@ import mainPackage.TraceProcessor;
 
 
 public class Logger {
-	static List <String> programNamesList= new ArrayList<String>(); 
+	public	static List <String> programNamesList= new ArrayList<String>(); 
+	public	static double TP_T=0; 
+	public	static double TP_N=0; 
+	public	static double FP_T=0; 
+	public	static double FP_N=0; 
+	public	static double FN_T=0; 
+	public	static double FN_N=0; 
+	public	static double U_T=0; 
+	public	static double U_N=0; 
 
+	
+	
     static public void logBasics(String programName, String parameter) {
         try {
             File file = new File("log\\" + programName + "\\basics-"+parameter+".txt");
@@ -38,7 +48,15 @@ public class Logger {
                     + ";Callees;CalleesTraceValues;CalleesCallees;CalleesCalleesTraceValues"
                     + ";Prediction;MethodGoldTraceValue;TPFPTNFN;pattern\n"
             );
-            for ( MethodRTMCell cell : MethodRTMCell.methodtraces2HashMap.values()) {
+            TP_T=0; 
+        	TP_N=0; 
+        	FP_T=0; 
+        	FP_N=0; 
+        	FN_T=0; 
+        	FN_N=0; 
+        	U_T=0; 
+        	U_N=0; 
+            for ( MethodRTMCell cell : MethodRTMCell.Totalmethodtraces2HashMap.get(programName).values()) {
 
                 writer.write(
                         cell.getMethod().getID() + ";" + cell.getMethod().getName() + ";" +
@@ -55,6 +73,12 @@ public class Logger {
                 );
             }
             writer.close();
+            System.out.println("N Precision:"+(TP_N*100/(TP_N+FP_N)));  
+            System.out.println("T Precision:"+(TP_T*100/(TP_T+FP_T)));  
+            System.out.println("N Recall:"+(TP_N*100/(TP_N+FN_N+U_N)));  
+            System.out.println("T Recall:"+(TP_T*100/(TP_T+FN_T+U_T)));  
+            System.out.println("TP_T: "+TP_T+" FP_T: "+FP_T+"TP_N: "+TP_N+" FP_N: "+FP_N+"FN_T: "+FN_T+"FN_N: "+FN_N+ " U_T: "+ U_T+ " U_N: "+ U_N);
+            System.out.println("ENDING");
         } catch (Exception ex) {
         }
     }

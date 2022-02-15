@@ -17,13 +17,17 @@ import javax.annotation.Generated;
 
 import BoxPlots.counts;
 import evaluation.Seeder;
+import model.Clazz;
 import model.ClazzRTMCell;
+import model.Method;
 import model.MethodRTMCell;
 import model.MethodRTMCellList;
 import model.PredictionPattern;
 import model.RTMCell;
 import model.RTMCellList;
+import model.Variable;
 import model.VariableList;
+import traceRefiner.TraceRefinerPredictionPattern;
 import traceValidator.TraceValidatorPredictionPattern;
 import weka.gui.ProgrammaticProperty;
 
@@ -32,6 +36,17 @@ public class CSV {
 	public static boolean AtLeastOneInstance=true; 
 
     static File file = new File("log\\data.txt");
+    static File chessTestFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\chessTest.arff");
+    static File ganttTestFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ganttTest.arff");
+    static File itrustTestFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\itrustTest.arff");
+    static File jhotdrawTestFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\jhotdrawTest.arff");
+
+    static File ganttitrustjhotTrainFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ganttiTrustJHotTrain.arff");
+    static File chessitrustjhotTrainFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\chessiTrustJHotTrain.arff");
+    static File chessganttjhotTrainFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ChessGanttJHotTrain.arff");
+    static File chessganttitrustTrainFile = new File("C:\\Users\\mouh\\Downloads\\TraceabilityCDG-master\\TraceabilityCDG-master\\TraceTool\\src\\mainPackage\\ChessGanttiTrustTrain.arff");
+
+
     public static boolean Seeding=false; 
     public static boolean step2=true; 
     CSV csv=new CSV();  
@@ -65,15 +80,16 @@ public class CSV {
     		+ "CallersCallersT,CallersCallersN,CallersCallersU,"
     		+ "CalleesT,CalleesN,CalleesU,"
     		+ "CalleesCalleesT,CalleesCalleesN,CalleesCalleesU,classGold,VariableTraceValue"; 
-    		
-     static String headersStep2="gold,Program,MethodType,"
-    		    		+"RequirementID,MethodID,PredictedTraceValue,"
+    		//////////////////////////////
+     static String headersStep2="gold,MethodType,"
+    		    		+"PredictedTraceValue,MethodCategory,"
     		    		+ "CallersT,CallersN,CallersU,"
     		    		+ "CallersCallersT,CallersCallersN,CallersCallersU,"
     		    		+ "CalleesT,CalleesN,CalleesU,"
     		    		+ "CalleesCalleesT,CalleesCalleesN,CalleesCalleesU,classGold"
     		
-    		; 
+    		;
+     ///////////////////////////////
     static String headersAtLeastOneInstanceNoProgram="gold,MethodType,"
 
     		+ "CallersT,CallersN,CallersU,"
@@ -90,20 +106,22 @@ public class CSV {
 		mergedHashMap.put("T", new ArrayList<MethodRTMCell>()); 
 		mergedHashMap.put("N", new ArrayList<MethodRTMCell>()); 
 
+	
+
+
 		
 		ArrayList<String> programs = new ArrayList<String>();
-		 FileWriter writer = new FileWriter(file,true);
-		 if(!AtLeastOneInstance)
-			 writer.write(headers+"\n");
-		 else if(AtLeastOneInstance && !Seeding && !step2)
-			 writer.write(headersAtLeastOneReqMethodInstance+"\n");
-		 else if(AtLeastOneInstance && !Seeding && step2)
-			 writer.write(headersStep2+"\n");
+//		 if(!AtLeastOneInstance)
+//			 writer.write(headers+"\n");
+//		 else if(AtLeastOneInstance && !Seeding && !step2)
+//			 writer.write(headersAtLeastOneReqMethodInstance+"\n");
+//		 else if(AtLeastOneInstance && !Seeding && step2)
+//			 writer.write(headersStep2+"\n");
 
 			programs.add("chess");
-			programs.add("gantt");
-			programs.add("itrust");
-			programs.add("jhotdraw");
+//			programs.add("gantt");
+//			programs.add("itrust");
+//			programs.add("jhotdraw");
 //			programs.add("vod"); 
 			
 //			programs.add("vod");
@@ -169,15 +187,75 @@ public class CSV {
 				
 		}
 		}else {
-			for(String programName: programs) {
-				DatabaseInput.read(programName);
-				System.out.println(programName);
-				generateCSVFile(programName, writer);
-			}
-		}
+//			for(String programName: programs) {
+//				DatabaseInput.read(programName);
+//				System.out.println(programName);
+//				
+//			}
+			List<String> mylistgantt = new ArrayList<>(); 	
+			mylistgantt.add("gantt"); 
+			
+			List<String> mylistitrust = new ArrayList<>(); 	
+			mylistitrust.add("itrust"); 
+			
+			List<String> mylistjhot = new ArrayList<>(); 	
+			mylistjhot.add("jhotdraw"); 
+			
+			List<String> mylistchess = new ArrayList<>(); 	
+			mylistchess.add("chess"); 
+			
+			
+			List<String> mylistganttitrustjhot= new ArrayList<>(); 	
+			mylistganttitrustjhot.add("gantt"); 
+			mylistganttitrustjhot.add("itrust"); 
+			mylistganttitrustjhot.add("jhotdraw"); 
+
+			List<String> mylistchessitrustjhot= new ArrayList<>(); 	
+			mylistchessitrustjhot.add("chess"); 
+			mylistchessitrustjhot.add("itrust"); 
+			mylistchessitrustjhot.add("jhotdraw"); 
+			
+			List<String> mylistchessganttjhot= new ArrayList<>(); 	
+			mylistchessganttjhot.add("chess"); 
+			mylistchessganttjhot.add("gantt"); 
+			mylistchessganttjhot.add("jhotdraw"); 
+			
+			List<String> mylistchessganttitrust= new ArrayList<>(); 	
+			mylistchessganttitrust.add("chess"); 
+			mylistchessganttitrust.add("gantt"); 
+			mylistchessganttitrust.add("itrust"); 
+			
+			FileWriter writer = new FileWriter(chessTestFile,false);
+			generateCSVFile2(writer,mylistchess,chessTestFile);
+
+			 writer = new FileWriter(ganttTestFile,false);
+			generateCSVFile2(writer,mylistgantt, ganttTestFile);
+			
+			 writer = new FileWriter(itrustTestFile,false);
+				generateCSVFile2(writer,mylistitrust, itrustTestFile);
+				
+				 writer = new FileWriter(jhotdrawTestFile,false);
+					generateCSVFile2(writer,mylistjhot, jhotdrawTestFile);	
+					
+					
+					 writer = new FileWriter(chessganttitrustTrainFile,false);
+						generateCSVFile2(writer,mylistchessganttitrust, chessganttitrustTrainFile);	
+						
+				 writer = new FileWriter(chessganttjhotTrainFile,false);
+							generateCSVFile2(writer,mylistchessganttjhot, chessganttjhotTrainFile);	
+							
+							 writer = new FileWriter(chessitrustjhotTrainFile,false);
+								generateCSVFile2(writer,mylistchessitrustjhot, chessitrustjhotTrainFile);	
+								
+								 writer = new FileWriter(ganttitrustjhotTrainFile,false);
+									generateCSVFile2(writer,mylistganttitrustjhot, ganttitrustjhotTrainFile);	
+									
+									
+									System.out.println("DONE");
+
 		  
 		
-		
+		}
 			
 			
 
@@ -185,6 +263,239 @@ public class CSV {
 
 	}
 	
+		private static void generateCSVFile2(FileWriter writer, List<String> mylist, File file2) throws Exception {
+		// TODO Auto-generated method stub
+		    file2.createNewFile();
+
+			 writer.write("@RELATION traces\n"+ 
+
+				"@ATTRIBUTE gold	{T,N,U}\n"+ 
+				"@ATTRIBUTE MethodType 	{Inner, Leaf, Root}\n"+
+				"@ATTRIBUTE PredictedTraceValue {UndefinedTrace,NoTrace, Trace, NA}\n"+
+				"@ATTRIBUTE MethodCategory {getter,setter,init,method, equals, toString, print, add, sort, compare, read, open, write, save, update}\n"+
+				"@ATTRIBUTE Return {0,1}\n"+
+				"@ATTRIBUTE MethodLOC {0,1, From2to5, From6to10, From11to20, From21}\n"+
+				
+//				"@ATTRIBUTE TClassTraces {0,From1to5, From6to10,From11to15,From16to20, From21}\n"+
+				"@ATTRIBUTE TClassTraces {0,1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12, 13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34}\n"+			
+				"@ATTRIBUTE NClassTraces {0,1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12, 13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34}\n"+			
+
+				
+				"@ATTRIBUTE CallerSize {0,From1to5, From6to10, From11to15, From16to20, From21}\n"+
+				"@ATTRIBUTE CalleeSize {0,From1to5, From6to10, From11to15, From16to20, From21}\n"+
+				
+				"@ATTRIBUTE CallersT {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CallersN {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CallersU {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CallersCallersT {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CallersCallersN {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CallersCallersU {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CalleesT {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CalleesN {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CalleesU {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CalleesCalleesT {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CalleesCalleesN {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE CalleesCalleesU {Low, High, Medium, -1}  \n"+
+				"@ATTRIBUTE classGold {Trace,NoTrace,UndefinedTrace} \n"
+				+ "@DATA\n\n\n\n\n\n"
+				); 
+
+//			List<String> mylist = new ArrayList<>(); 	
+////			mylist.add("chess"); 
+//		   mylist.add("gantt"); 
+////			mylist.add("itrust");
+////			mylist.add("jhotdraw");
+		
+		
+		
+		
+		
+
+				for(String program: mylist) {
+					
+					DatabaseInput.read(program);		
+					// TODO Auto-generated method stub
+					counts callers = new counts(); 
+					counts callersCallers= new counts(); 
+					counts callees= new counts(); 
+					counts calleesCallees= new counts(); 
+		 
+						for ( MethodRTMCell methodtrace : MethodRTMCell.Totalmethodtraces2HashMap.get(program).values()) {
+//							System.out.println(methodtrace.getMethod().getName());
+			            	if(!methodtrace.getGoldTraceValue().equals(RTMCell.TraceValue.UndefinedTrace)) {
+			            		
+			            		String MethodCategory=""; 
+								if(methodtrace.getMethod().fullMethodName.contains("equals") ) {
+									MethodCategory="equals"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("get") ) {
+									MethodCategory="getter"; 
+								}
+								else if(methodtrace.getMethod().fullMethodName.contains("set") ) {
+									MethodCategory="setter"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("init") ) {
+									MethodCategory="init"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("toString") ) {
+									MethodCategory="toString"; 
+								}
+								else if(methodtrace.getMethod().fullMethodName.contains("print") ) {
+									MethodCategory="print"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("add") ) {
+									MethodCategory="add"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("sort") ) {
+									MethodCategory="sort"; 
+								}
+								else if(methodtrace.getMethod().fullMethodName.contains("compare") ) {
+									MethodCategory="compare"; 
+								}
+								else if(methodtrace.getMethod().fullMethodName.contains("read") ) {
+									MethodCategory="read"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("open") ) {
+									MethodCategory="open"; 
+								}
+								else if(methodtrace.getMethod().fullMethodName.contains("write") ) {
+									MethodCategory="write"; 
+								}
+								else if(methodtrace.getMethod().fullMethodName.contains("save") ) {
+									MethodCategory="save"; 
+								}else if(methodtrace.getMethod().fullMethodName.contains("update") ) {
+									MethodCategory="update"; 
+								}
+								else {
+									MethodCategory="method"; 
+								}
+			    				String gold= methodtrace.logGoldTraceValueString(); 
+
+			    				String content = methodtrace.getMethod().getContent(); 
+			    				
+//			    				System.out.println(content);
+			    				String NumLines=""; 
+			    				
+			    				
+			    				int MethodLOC=countLines(content); 
+			    				
+			    				if(MethodLOC==0) NumLines="0"; 
+			    				else if(MethodLOC==1) NumLines="1"; 
+			    				else if(MethodLOC>=2 && MethodLOC<=5) NumLines="From2to5"; 
+			    				else if(MethodLOC>=6 && MethodLOC<=10) NumLines="From6to10"; 
+			    				else if(MethodLOC>=11 && MethodLOC<=20) NumLines="From11to20"; 
+			    				else NumLines="From21"; 
+			       		 		String s= gold+","; 
+//			       		 		s=s+program+","; 
+			       		 		String CallerSizeCategory= "";
+			       		 		String CalleeSizeCategory= "";
+			       		 		String TCountClassCategory= "";
+			       		 		String NCountClassCategory= "";
+
+					       		 int calleeSize=methodtrace.getCallees().size();
+					       		 int callerSize=methodtrace.getCallers().size();
+					       		 
+					       		 int TCountClass= Integer.parseInt(methodtrace.getClazzRTMCell().getClazz().getTcount());
+			       		 
+//					       		if(TCountClass>=1 && TCountClass<=5) TCountClassCategory="From1to5";
+//						       	 else if(TCountClass>=6 && TCountClass<=10) TCountClassCategory="From6to10";	
+//						       	 else  if(TCountClass>10 && TCountClass<=15) TCountClassCategory="From11to15";
+//					       		 else if(TCountClass>15 && TCountClass<=20) TCountClassCategory="From16to20";
+//					       		 else if(TCountClass>20 ) TCountClassCategory="From21";
+//					       		 else 
+					       			 TCountClassCategory= String.valueOf(TCountClass);
+					       			 
+						       		 int NCountClass= Integer.parseInt(methodtrace.getClazzRTMCell().getClazz().getNcount());
+					       			 NCountClassCategory= String.valueOf(NCountClass);
+
+								 if(calleeSize>=1 && calleeSize<=5) CalleeSizeCategory="From1to5";
+						       	 else
+						       		 if(calleeSize>=6 && calleeSize<=10) CalleeSizeCategory="From6to10";
+					       		 else if(calleeSize>10 && calleeSize<=15) CalleeSizeCategory="From11to15";
+					       		 else if(calleeSize>15 && calleeSize<=20) CalleeSizeCategory="From16to20";
+					       		 else if(calleeSize>20 ) CalleeSizeCategory="From21";
+					       		 else CalleeSizeCategory= String.valueOf(calleeSize);
+
+								 if(callerSize>=1 && callerSize<=5) CallerSizeCategory="From1to5";
+								 else
+									 if(callerSize>=6 && callerSize<=10) CallerSizeCategory="From6to10";
+					       		 else if(callerSize>10 && callerSize<=15) CallerSizeCategory="From11to15";
+					       		 else if(callerSize>15 && callerSize<=20) CallerSizeCategory="From16to20";
+					       		 else if(callerSize>20 ) CallerSizeCategory="From21";
+					       		 else CallerSizeCategory= String.valueOf(callerSize);
+					       		 
+					       		 
+					       		 
+					       		 
+			       		 
+			       		 		if(!methodtrace.getCallers().isEmpty() && !methodtrace.getCallees().isEmpty()) {
+			       		 			s=s+"Inner,"; 
+			       		 		}else if( methodtrace.getCallees().isEmpty() ) {
+			       		 			s=s+"Leaf,"; 
+			       		 		}else if( methodtrace.getCallers().isEmpty() ) {
+			       		 			s=s+"Root,"; 
+			       		 		}else if( methodtrace.getCallers().isEmpty() && methodtrace.getCallees().isEmpty()) {
+			       		 			s=s+"Isolated,"; 
+			       		 		}
+			       		 		
+			       		 		
+			       		 		
+			       		 	
+			    				Seeder.seedInputClazzTraceValuesWithDeveloperGold();
+
+			       		 		
+			       		 		
+//			    				 callers=generateCountsTNUAtLeastOneInstance(methodtrace.getCallers());
+//			   		 			 callersCallers=generateCountsTNUAtLeastOneInstance(methodtrace.getCallers().getCallers());
+//			   		 			 callees=generateCountsTNUAtLeastOneInstance(methodtrace.getCallees());
+//					 			 calleesCallees=generateCountsTNUAtLeastOneInstance(methodtrace.getCallees().getCallees());
+			       		 			 
+			    				String name = methodtrace.getMethod().fullMethodName; 
+			    				name=name.replaceAll(",", ""); 
+			    				name=name.replaceAll(";", ""); 
+			    				name=name.replaceAll("\\,", ""); 
+			    				name=name.replaceAll("\\;", ""); 
+
+				       		 		 callers=generateCountsTNU(methodtrace.getCallers());
+				   		 			 callersCallers=generateCountsTNU(methodtrace.getCallers().getCallers());
+				   		 			 callees=generateCountsTNU(methodtrace.getCallees());
+						 			 calleesCallees=generateCountsTNU(methodtrace.getCallees().getCallees());
+						 			TraceRefinerPredictionPattern.define();
+						 			if (methodtrace.getClazzRTMCell().getTraceValue().equals(RTMCell.TraceValue.NoTrace))
+										methodtrace.setPrediction(TraceRefinerPredictionPattern.Step1ClassNoTraceImpliesMethodNoTracePattern);
+						 			 Clazz ret = methodtrace.getMethod().getReturnType().dataType; 
+					    				String rettype="0"; 
+//					    				System.out.println(ret);
+					    				
+					    				
+					    				if(ret!=null) {
+					    					rettype="1"; 
+					    				}
+						 	
+						 				s=s+""
+//						 				+methodtrace.getRequirement().ID+","+methodtrace.getMethod().ID+","
+						 						+methodtrace.getPredictedTraceValue()+","+MethodCategory+","+rettype+","+NumLines+","+
+
+						 						
+										TCountClassCategory+","+NCountClassCategory+","+CallerSizeCategory+","+CalleeSizeCategory+","+
+							 					
+							 					callers.amountT+","+callers.amountN+","+callers.amountU+","; 
+					   		 			s=s+callersCallers.amountT+","+callersCallers.amountN+","+callersCallers.amountU+","; 
+							 			s=s+callees.amountT+","+callees.amountN+","+callees.amountU+","; 
+							 			s=s+calleesCallees.amountT+","+calleesCallees.amountN+","+calleesCallees.amountU
+							 					+","+
+												ClazzRTMCell.clazzTraces2HashMap.get(methodtrace.getRequirement().ID+"-"+methodtrace.getClazzRTMCell().getClazz().ID).getGoldTraceValue(); 
+							 			
+						 				
+						 			s=s+"\n"; 
+									writer.write(s);
+									
+			            	}
+						}
+						
+				}
+						writer.close();
+						System.out.println("done");
+		
+	}
+		private static int countLines(String str){
+			   String[] lines = str.split("\r\n|\r|\n");
+			   return  lines.length;
+			}
 		private static void retrieveTsAndNs(String programName, List<MethodRTMCell> Ts, List<MethodRTMCell> Ns) {		
 			LinkedHashMap<String, MethodRTMCell> clonedLinkedHashMap = (LinkedHashMap<String, MethodRTMCell> )MethodRTMCell.methodtraces2HashMap.clone(); 
 	
@@ -557,7 +868,7 @@ public class CSV {
 		return c; 
 	}
 	/*****************************************************************************************************/
-	private static counts generateCountsTNU(MethodRTMCellList callers) {
+	public static counts generateCountsTNU(MethodRTMCellList callers) {
 		counts c = counts.countMethods(callers); 
 
 

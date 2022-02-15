@@ -18,15 +18,34 @@ public class Clazz {
 	private MethodList methods = new MethodList();
 	private VariableList fieldClasses= new VariableList(); 
 	//how many requirements does a class implement 
+	private int RequirementNumber=0;
+	
+	
+	public int getRequirementNumber() {
+		return RequirementNumber;
+	}
+
+	public void setRequirementNumber(int requirementNumber) {
+		RequirementNumber = requirementNumber;
+	}
+
 	private String Tcount="0"; 
 
 	public String getTcount() {
 		return Tcount;
 	}
-
 	public void setTcount(String tcount) {
 		Tcount = tcount;
 	}
+	private String Ncount="0"; 
+
+	public String getNcount() {
+		return Ncount;
+	}
+	public void setNcount(String ncount) {
+		Ncount = ncount;
+	}
+	
 
 	public Clazz(String classid, String name) {
 		super();

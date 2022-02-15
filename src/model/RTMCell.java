@@ -2,6 +2,7 @@ package model;
 
 import static traceRefiner.TraceRefinerPredictionPattern.Step1ClassNoTraceImpliesMethodNoTracePattern;
 
+import evaluation.Logger;
 import mainPackage.TraceProcessor;
 import mainPackage.TraceProcessor.Algorithm;
 
@@ -90,26 +91,55 @@ public class RTMCell {
 
 		String res=""; 
 
-		if (getGoldTraceValue().equals(TraceValue.UndefinedTrace)) res=res+"/"+"U";
-		 if (getPredictedTraceValue().equals(TraceValue.NoTrace)	&& getGoldTraceValue().equals(TraceValue.Trace)) res=res+"/"+"FN_T";
-		 if (getPredictedTraceValue().equals(TraceValue.NoTrace) && getGoldTraceValue().equals(TraceValue.Trace)) res=res+"/"+"FP_N";
+		if (!getGoldTraceValue().equals(TraceValue.UndefinedTrace)) {
+		
+		 if (getPredictedTraceValue().equals(TraceValue.NoTrace)	&& getGoldTraceValue().equals(TraceValue.Trace)) {
+			 res=res+"/"+"FN_T";
+			 res=res+"/"+"FP_N";
+			 Logger.FN_T++; 
+			 Logger.FP_N++; 
 
-		 if (getPredictedTraceValue().equals(TraceValue.Trace)&& getGoldTraceValue().equals(TraceValue.NoTrace)) res=res+"/"+"FN_N";	 
+		 }
+		
+
+		 else if (getPredictedTraceValue().equals(TraceValue.Trace)&& getGoldTraceValue().equals(TraceValue.NoTrace)) {
+			 res=res+"/"+"FN_N";	 
+			 res=res+"/"+"FP_T";
+			 Logger.FN_N++; 
+			 Logger.FP_T++; 
+		 }
 		 
 //		 if (getPredictedTraceValue().equals(TraceValue.UndefinedTrace) && getGoldTraceValue().equals(TraceValue.NoTrace)) res=res+"/"+"FN_N_U";
 
 
-		 if (getPredictedTraceValue().equals(TraceValue.Trace)&& getGoldTraceValue().equals(TraceValue.Trace)) res=res+"/"+"TN_N";
-		 
-		 if (getPredictedTraceValue().equals(TraceValue.Trace) && getGoldTraceValue().equals(TraceValue.NoTrace)) res=res+"/"+"FP_T";
-		 if (getPredictedTraceValue().equals(TraceValue.NoTrace) && getGoldTraceValue().equals(TraceValue.NoTrace))res=res+"/"+"TP_N";
-		 
-		 if (getPredictedTraceValue().equals(TraceValue.Trace) && getGoldTraceValue().equals(TraceValue.Trace)) res=res+"/"+"TP_T";
-		 if (getPredictedTraceValue().equals(TraceValue.NoTrace)&& getGoldTraceValue().equals(TraceValue.NoTrace)) res=res+"/"+"TN_T";
+		 else if (getPredictedTraceValue().equals(TraceValue.Trace) && getGoldTraceValue().equals(TraceValue.Trace)) {
+			 res=res+"/"+"TN_N";
+			 res=res+"/"+"TP_T";
+			 Logger.TP_T++; 
 
+		 }
+		 
+		
+		 else  if (getPredictedTraceValue().equals(TraceValue.NoTrace) && getGoldTraceValue().equals(TraceValue.NoTrace)) {
+			 res=res+"/"+"TP_N";
+			 res=res+"/"+"TN_T";
+			 Logger.TP_N++; 
+
+		 }
+		 
 		
 		
-		if(res.equals("")) res="/U"; 
+		 else  if (getPredictedTraceValue().equals(TraceValue.UndefinedTrace) && getGoldTraceValue().equals(TraceValue.Trace)) {
+			 res=res+"/"+"U_T";
+			 Logger.U_T++; 
+		 }
+
+		 else  if (getPredictedTraceValue().equals(TraceValue.UndefinedTrace) && getGoldTraceValue().equals(TraceValue.NoTrace)) {
+			 res=res+"/"+"U_N";
+			 Logger.U_N++; 
+		 }
+		}
+		
 		return res;
 	}
 	
@@ -163,6 +193,7 @@ public class RTMCell {
 //				+","+FN_NT_undefinedPred+","+TN_NT+","+TN_T); 
 		System.out.println(programName+","+TPred+","+NPred+","+UPred+","+TP_T+","+FP_T+","+FN_T+","+FN_T_undefinedPred+","+FN_T_NoTracePred+","+""+","+""+","+TP_N
 				+","+FP_N+","+FN_N+","+FN_NT_undefinedPred+","+FN_NT_tracePred); 
+		System.out.println("ÖVER");
 
 	}
 	public String logPredictionPattern(){
@@ -179,7 +210,7 @@ public class RTMCell {
 		if (predictionPattern!=pattern) modified=true;
 		predictionPattern = pattern;
 		predictedTraceValue = predictionPattern.getValue();
-		this.setPredictedTraceValue(TraceValue.NoTrace);
+//		this.setPredictedTraceValue(TraceValue.NoTrace);
 
 		if (goldTraceValue.equals(TraceValue.Trace))
 			pattern.T++;

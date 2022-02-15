@@ -374,8 +374,9 @@ public class DatabaseInput {
 			String methodName = mymethod.get("methodname").toString();
 			String classid = mymethod.get("classid").toString();
 			Clazz clazz = Clazz.clazzesHashMap.get(classid);
+			String content = mymethod.get("method").toString();
 
-			Method method = new Method(methodid, methodName, clazz);
+			Method method = new Method(methodid, methodName, clazz, content);
 			clazz.getMethods().add(method);
 			Method.methodsHashMap.put(methodid, method);
 			methodHashMapLocal.put(methodid, method); 
@@ -460,6 +461,10 @@ public class DatabaseInput {
 				int Tcount=Integer.parseInt(clazz.getTcount()); 
 				Tcount=Tcount+1; 
 				clazz.setTcount(String.valueOf(Tcount));
+				
+				int Ncount=Integer.parseInt(clazz.getNcount()); 
+				Ncount=Ncount+1; 
+				clazz.setNcount(String.valueOf(Ncount));
 //				Clazz.clazzesHashMap.put(classid, clazz); 
 			}
 			
